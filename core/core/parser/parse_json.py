@@ -19,3 +19,19 @@ def parse_json(
     except ValidationError as exc:
         logging.error("JSON in %s was invalid" % path)
         raise
+
+
+def process_bounty_hunters(bounty_hunters: list[dict]) -> dict[int, list[str]]:
+    """
+    Preprocess the bounty hunters list into a more accessible dict for quick look up
+    Indexed by day to planets
+    """
+    new: dict[int, list[str]] = {}
+    for bh in bounty_hunters:
+        planet = bh["planet"]
+        day = bh["day"]
+        if day not in bh:
+            new[day] = []
+        if planet not in new[day]:
+            new[day].append(planet)
+    return new

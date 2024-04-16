@@ -4,6 +4,7 @@ Given a start planet, end planet, autonomy, and time, calculate all possible pat
 
 from copy import copy
 import logging
+from core.parser.parse_json import process_bounty_hunters
 from core.parser.parse_universe import parse_universe
 from core.shared.models import (
     EmpireConfiguration,
@@ -23,19 +24,65 @@ class Solver:
         self.start = falcon_config.departure
         self.end = falcon_config.arrival
         self.countdown = empire_config.countdown
-        self.bounty_hunters = empire_config.bounty_hunters
+        self.bounty_hunters = process_bounty_hunters(empire_config.bounty_hunters)
 
-    def tell_me_the_odds(self):
+    def tell_me_the_odds(self) -> int:
         """
         Ask C3PO to tell you the odds
         """
-        self.calculate_odds(self.get_successful_paths())
+        return round(self.calculate_odds(self.get_successful_paths()), 2) * 100
 
-    def calculate_odds(self, successful_paths: list[PathStep]):
+    def calculate_odds(self, successful_paths: list[PathStep]) -> float:
+        if not successful_paths:
+            return 0
+        logging.info("There are %s successful paths", len(successful_paths))
+        logging.info(successful_paths)
+
+        smallest_k = None
+
         for successful_path in successful_paths:
             route = successful_path.route
-            # For each route we can check the current day, and if there are bounty hunters
-            # Alternatively, we could store our solutions as a different data structure? Linked list
+            day = 0
+
+            k = 0
+
+            if self.start in self.bounty_hunters.get(day, []):
+                k += 1
+            prev_planet = self.start
+            for planet in route[1:]:
+                if planet not in self.routes[prev_planet]:
+                    day += 1
+                    if (
+                        hunters_on_planets := self.bounty_hunters.get(day)
+                    ) and planet in hunters_on_planets:
+                        k += 1
+                    continue
+                day += self.routes[prev_planet][planet]
+                if (
+                    hunters_on_planets := self.bounty_hunters.get(day)
+                ) and planet in hunters_on_planets:
+                    k += 1
+                prev_planet = planet
+            logging.debug(
+                "k was %s for path %s",
+                k,
+                successful_path,
+            )
+            if k == 0:
+                return 1
+            if smallest_k is None:
+                smallest_k = k
+            else:
+                smallest_k = min(k, smallest_k)
+
+        return 1 - Solver.compute_capture_times_formula(smallest_k) or 1
+
+    @staticmethod
+    def compute_capture_times_formula(k: int) -> float:
+        sum_ = 0
+        for i in range(k):
+            sum_ += (9**i) / (10 ** (i + 1))
+        return sum_
 
     def get_successful_paths(self):
         steps = [
@@ -52,13 +99,13 @@ class Solver:
             current_step = steps.pop(0)
             if current_step.day < 0:
                 continue
-            if self.successful_path(current_step):
+            if self.is_successful_path(current_step):
                 successful_paths.append(current_step)
                 continue
 
             possible_steps = self.calculate_possible_steps(current_step)
             steps.extend(possible_steps)
-        logging.info("total steps: %s", i)
+        logging.info("Total steps: %s", i)
         return successful_paths
 
     def calculate_possible_steps(self, step: PathStep) -> list[PathStep]:
@@ -87,5 +134,5 @@ class Solver:
         )
         return possible
 
-    def successful_path(self, step: PathStep) -> bool:
+    def is_successful_path(self, step: PathStep) -> bool:
         return step.route[-1] == self.end
