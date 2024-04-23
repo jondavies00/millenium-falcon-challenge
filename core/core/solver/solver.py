@@ -36,7 +36,7 @@ class Solver:
         if not successful_paths:
             return 0
         logging.info("There are %s successful paths", len(successful_paths))
-        logging.info(successful_paths)
+        # logging.info(successful_paths)
 
         smallest_k = None
 
@@ -121,17 +121,18 @@ class Solver:
                         route=updated_route,
                     )
                 )
-            # It's always possible to refuel and go nowhere
 
-        updated_route = copy(step.route)
-        updated_route.append(step.route[-1])
-        possible.append(
-            PathStep(
-                autonomy=self.autonomy,
-                day=step.day - 1,
-                route=updated_route,
+        # It's always possible to refuel and go nowhere
+        if step.day - 1 > 0:
+            updated_route = copy(step.route)
+            updated_route.append(step.route[-1])
+            possible.append(
+                PathStep(
+                    autonomy=self.autonomy,
+                    day=step.day - 1,
+                    route=updated_route,
+                )
             )
-        )
         return possible
 
     def is_successful_path(self, step: PathStep) -> bool:

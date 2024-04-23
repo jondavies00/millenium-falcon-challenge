@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.11"
 pydantic = "^2"
 pytest = "*"
+fastapi = "*"
 
 
 
