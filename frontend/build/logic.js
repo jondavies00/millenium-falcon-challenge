@@ -23,7 +23,10 @@ fileInput.addEventListener( "change", function( event ) {
             const jsonData = JSON.parse(event.target.result);
             console.log(jsonData); // Do something with the JSON data
             // Here you can perform any operations with the JSON data
-            displayOdds(calculateOdds(jsonData));
+            calculateOdds(jsonData).then(data => {if (data) {
+                displayOdds(data)
+            }})
+           ;
         };
 
         reader.readAsText(file);
@@ -43,9 +46,25 @@ function displayOdds(calculatedOdds) {
     // document.body.appendChild(oddsElement);
 }
 
-function calculateOdds(jsonData) {
+async function calculateOdds(jsonData) {
     // Implement your logic to calculate odds from JSON data
     // For example:
     // return jsonData.someProperty / jsonData.anotherProperty;
-    return 42; // Sample value
+    console.log("Requesting");
+    const response = await fetch('http://localhost:80/solver/odds' ,{
+        headers : { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         }
+  
+      });
+    const json_ = await response.json()
+    console.log(json_);
+    return json_["odds"];
+    // .then(response => r= response.json())
+    // .then(data => console.log(data))
+    // .catch(error => console.error('Error:', error));
+    // console.log(r)
+    // return r
+    
 }

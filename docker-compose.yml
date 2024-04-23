@@ -3,21 +3,33 @@ version: '3.8'
 services:
   backend:
     build:
-      context: .
-      dockerfile: core/docker/Dockerfile
+      context: core
+      dockerfile: Dockerfile
     ports:
-      - "8000:8000"  # Adjust port if needed
+      - "8000:8000"
     networks:
       - my_network
+    deploy:
+      resources:
+        limits:
+          memory: 100M   # Limit memory usage to 512 megabytes
+          cpus: '0.2'    # Limit CPU usage to 0.5 cores (50% of one core)
 
   frontend:
     build:
-      context: .
-      dockerfile: frontend/docker/Dockerfile
+      context: frontend
+      dockerfile: Dockerfile
     ports:
-      - "80:80"  # Adjust port if needed
+      - "80:80"
     networks:
       - my_network
+    deploy:
+      resources:
+        limits:
+          memory: 100M   # Limit memory usage to 512 megabytes
+          cpus: '0.2'    # Limit CPU usage to 0.5 cores (50% of one core)
+    volumes:
+      - ./frontend/nginx-config:/etc/nginx/conf.d
 
 networks:
   my_network:

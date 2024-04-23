@@ -10,6 +10,7 @@ python = "^3.11"
 pydantic = "^2"
 pytest = "*"
 fastapi = "*"
+uvicorn = "*"
 
 
 
