@@ -7,6 +7,7 @@ class PathStep:
     autonomy: int
     day: int
     route: list[str]
+    seen_bounty_hunters: int
 
 
 class FalconConfiguration(BaseModel):

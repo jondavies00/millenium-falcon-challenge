@@ -14,4 +14,4 @@ def create_app():
 
 
 def start_server():
-    uvicorn.run("falcon-solver.server.app:create_app", port=8000)
+    uvicorn.run("falcon_solver.server.app:create_app", port=8000)

@@ -1,4 +1,4 @@
-from core.parser.parse_universe import parse_universe
+from falcon_solver.parser.parse_universe import parse_universe
 import logging
 
 

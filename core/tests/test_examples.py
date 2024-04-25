@@ -1,7 +1,7 @@
 import logging
-from core.parser.parse_json import parse_json
-from core.solver.solver import Solver
-from core.shared.models import (
+from falcon_solver.parser.parse_json import parse_json
+from falcon_solver.solver.solver import Solver
+from falcon_solver.shared.models import (
     FalconConfiguration,
     EmpireConfiguration,
 )
@@ -21,4 +21,4 @@ def test_examples(empire_filename: str, odds: float):
             f"tests/resources/{empire_filename}.json", EmpireConfiguration
         ),
     )
-    assert odds == solver.tell_me_the_odds()
+    assert odds == solver.tell_me_the_odds(rounded=True)
