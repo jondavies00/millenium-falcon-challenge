@@ -16,8 +16,3 @@ async def odds(empire_config: EmpireConfiguration, falcon_config: FalconConfigur
         falcon_config = parse_json(str(Path.cwd()) + "/falcon_solver/shared/resources/millennium-falcon.json", FalconConfiguration)
     solver = Solver(falcon_config=falcon_config, empire_config=empire_config)
     return solver.tell_me_the_odds()
-
-
-@router.get("", response_model=float)
-async def odds():    
-    return 0
