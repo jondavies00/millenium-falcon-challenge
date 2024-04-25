@@ -15,10 +15,10 @@ import pytest
 def test_examples(empire_filename: str, odds: float):
     solver = Solver(
         falcon_config=parse_json(
-            "tests/resources/millennium-falcon.json", FalconConfiguration
+            "/tests/resources/millennium-falcon.json", FalconConfiguration
         ),
         empire_config=parse_json(
-            f"tests/resources/{empire_filename}.json", EmpireConfiguration
+            f"/tests/resources/{empire_filename}.json", EmpireConfiguration
         ),
     )
     assert odds == solver.tell_me_the_odds(rounded=True)

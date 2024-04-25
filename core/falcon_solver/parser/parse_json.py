@@ -1,5 +1,6 @@
 import json
 import logging
+from pathlib import Path
 from typing import Literal
 
 from pydantic import ValidationError
@@ -11,7 +12,7 @@ def parse_json(
     path: str, config: type[EmpireConfiguration] | type[FalconConfiguration]
 ) -> EmpireConfiguration | FalconConfiguration:
 
-    with open(path) as fn:
+    with open(str(Path.cwd()) + path) as fn:
         json_falcon = json.loads(fn.read())
     try:
         return config(**json_falcon)
