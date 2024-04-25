@@ -4,6 +4,7 @@ import sqlite3
 
 
 def parse_universe(db_path: str) -> dict[dict[str, int]]:
+    logging.info(str(Path.cwd()) + db_path)
     connection = sqlite3.connect(str(Path.cwd()) + db_path)
     cur = connection.cursor()
     res = cur.execute("SELECT * FROM routes;")
