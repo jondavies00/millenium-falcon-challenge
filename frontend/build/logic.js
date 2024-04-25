@@ -23,8 +23,8 @@ fileInput.addEventListener( "change", function( event ) {
             const jsonData = JSON.parse(event.target.result);
             console.log(jsonData); // Do something with the JSON data
             // Here you can perform any operations with the JSON data
-            calculateOdds(jsonData).then(data => {if (data) {
-                displayOdds(data)
+            calculateOdds(jsonData).then(odds => {if (typeof odds === "number") {
+                displayOdds(odds)
             }})
            ;
         };
@@ -37,7 +37,8 @@ fileInput.addEventListener( "change", function( event ) {
 });  
 
 function displayOdds(calculatedOdds) {
-    const oddsText = `Your calculated odds: ${calculatedOdds}`;
+    console.log("attempting display")
+    const oddsText = `Your calculated odds: ${calculatedOdds}%!`;
     const oddsElement = document.createElement('p');
     oddsElement.textContent = oddsText;
     oddsElement.style.color = 'yellow';
@@ -57,20 +58,12 @@ async function calculateOdds(jsonData) {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
          },
-        body : JSON.stringify({
-            "empire_config":{
-            "countdown": 8, 
-            "bounty_hunters": [
-              {"planet": "Hoth", "day": 6 }, 
-              {"planet": "Hoth", "day": 7 },
-              {"planet": "Hoth", "day": 8 }
-            ]
-          }})
+        body : JSON.stringify({"empire_config": jsonData})
   
       });
-    const json_ = await response.json()
-    console.log(json_);
-    return json_["odds"];
+    const odds  = await response.json()
+    console.log(`Returning ${odds}`);
+    return odds;
     // .then(response => r= response.json())
     // .then(data => console.log(data))
     // .catch(error => console.error('Error:', error));
