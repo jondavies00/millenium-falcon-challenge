@@ -52,10 +52,20 @@ async function calculateOdds(jsonData) {
     // return jsonData.someProperty / jsonData.anotherProperty;
     console.log("Requesting");
     const response = await fetch('http://localhost:80/solver/odds' ,{
+        method : "POST",
         headers : { 
           'Content-Type': 'application/json',
           'Accept': 'application/json'
-         }
+         },
+        body : JSON.stringify({
+            "empire_config":{
+            "countdown": 8, 
+            "bounty_hunters": [
+              {"planet": "Hoth", "day": 6 }, 
+              {"planet": "Hoth", "day": 7 },
+              {"planet": "Hoth", "day": 8 }
+            ]
+          }})
   
       });
     const json_ = await response.json()
