@@ -10,7 +10,7 @@ from falcon_solver.shared.models import (EmpireConfiguration,
     "test_path,config,expected",
     [
         (
-            "tests/resources/empire.json",
+            "/tests/resources/empire-1.json",
             EmpireConfiguration,
             {
                 "countdown": 7,
@@ -22,22 +22,22 @@ from falcon_solver.shared.models import (EmpireConfiguration,
             },
         ),
         (
-            "tests/resources/millennium-falcon.json",
+            "/tests/resources/millennium-falcon.json",
             FalconConfiguration,
             {
                 "autonomy": 6,
                 "departure": "Tatooine",
                 "arrival": "Endor",
-                "routes_db": "universe.db",
+                "routes_db": "/tests/resources/universe.db",
             },
         ),
     ],
 )
 def test_universe_parser(test_path, config, expected):
     parsed = parse_json(test_path, config)
-    assert parsed.model_dump() == expected
+    assert parsed.dict() == expected
 
 
 def test_invalid_parse():
     with pytest.raises(ValidationError):
-        parsed = parse_json("tests/resources/invalid-empire.json", EmpireConfiguration)
+        parsed = parse_json("/tests/resources/invalid-empire.json", EmpireConfiguration)
