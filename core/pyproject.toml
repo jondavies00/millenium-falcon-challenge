@@ -7,13 +7,11 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-pydantic = "^2"
+pydantic = "^1"
 pytest = "*"
-fastapi = "*"
+fastapi = "^0.88.0"
 uvicorn = "*"
-httpx = "*"1
-
-
+httpx = "*"
 
 [build-system]
 requires = ["poetry-core"]

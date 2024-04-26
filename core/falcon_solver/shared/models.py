@@ -1,6 +1,7 @@
 from dataclasses import dataclass
-from pydantic import BaseModel
-
+from typing import TypedDict
+from pydantic import BaseModel, root_validator
+import logging
 
 @dataclass
 class PathStep:
@@ -9,6 +10,9 @@ class PathStep:
     route: list[str]
     seen_bounty_hunters: int
 
+class BountyHunters(TypedDict):
+    day: int
+    planet: str
 
 class FalconConfiguration(BaseModel):
     autonomy: int
@@ -16,7 +20,7 @@ class FalconConfiguration(BaseModel):
     arrival: str
     routes_db: str
 
-
 class EmpireConfiguration(BaseModel):
     countdown: int
-    bounty_hunters: list[dict[str, str | int]]
+    # coerces potentially json-loaded bounty hunters into correct types
+    bounty_hunters: list[BountyHunters] 
