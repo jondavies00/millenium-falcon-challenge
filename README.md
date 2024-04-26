@@ -248,6 +248,12 @@ The solver has a front end served by nginx, a backend solver & server written in
 
 To get started, clone the repo with `git clone https://github.com/jondavies00/millenium-falcon-challenge.git`
 
+### Tests
+
+To run the tests install poetry and do the following:
+1. `cd core`
+2. `pytest tests`
+
 ### The Frontend
 
 To access the front end, ensure docker is installed and launch the project via docker with `start.sh` and head to `localhost:80` in your browser.
