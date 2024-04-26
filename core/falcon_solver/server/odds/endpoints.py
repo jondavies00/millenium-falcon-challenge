@@ -16,5 +16,5 @@ async def odds(empire_config: EmpireConfiguration, falcon_config: FalconConfigur
     if not falcon_config:
         falcon_config = parse_json("/falcon_solver/shared/resources/millennium-falcon.json", FalconConfiguration)
     solver = Solver(falcon_config=falcon_config, empire_config=empire_config)
-    odds = solver.tell_me_the_odds()
+    odds = solver.tell_me_the_odds(rounded=True)
     return odds

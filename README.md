@@ -246,6 +246,8 @@ or
 
 The solver has a front end served by nginx, a backend solver & server written in Python and hosted with uvicorn, and a CLI also written in Python.
 
+To get started, clone the repo with `git clone https://github.com/jondavies00/millenium-falcon-challenge.git`
+
 ### The Frontend
 
 To access the front end, ensure docker is installed and launch the project via docker with `start.sh` and head to `localhost:80` in your browser.
@@ -253,4 +255,4 @@ Upload a JSON file containing the empire plans, and the odds percentage will be 
 
 ### The CLI
 
-To use the CLI, ensure Python 3.11 is installed, and run `get-odds.sh` with two arguments (the millennium falcon JSON and the empire JSON). The odds percentage will be displayed.
+To use the CLI, ensure Python 3.11 is installed, and run `get-odds.sh` with two arguments (the Millennium Falcon JSON and the empire JSON). The odds percentage will be displayed.
