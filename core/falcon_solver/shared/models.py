@@ -1,7 +1,9 @@
+import logging
 from dataclasses import dataclass
 from typing import TypedDict
+
 from pydantic import BaseModel, root_validator
-import logging
+
 
 @dataclass
 class PathStep:

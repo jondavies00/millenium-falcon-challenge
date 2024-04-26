@@ -1,5 +1,6 @@
-from falcon_solver.parser.parse_universe import parse_universe
 import logging
+
+from falcon_solver.parser.parse_universe import parse_universe
 
 
 def test_universe_parser():

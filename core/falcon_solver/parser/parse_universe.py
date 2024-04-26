@@ -1,6 +1,6 @@
 import logging
-from pathlib import Path
 import sqlite3
+from pathlib import Path
 
 
 def parse_universe(db_path: str) -> dict[dict[str, int]]:

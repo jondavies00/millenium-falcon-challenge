@@ -1,15 +1,10 @@
 """
 Uses argparse to load in JSONs and calculate a percentage score 
 """
-import sys
-
 from falcon_solver.solver.solver import Solver
-print(sys.path)
+
 import argparse
 import fnmatch
-import json
-from pathlib import Path
-import re
 
 from core.falcon_solver.shared.models import EmpireConfiguration, FalconConfiguration
 from core.falcon_solver.parser.parse_json import parse_json
@@ -27,17 +22,16 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(parents=[odds_parser], add_help=False)
 
     if args.millennium_falcon_data is None or args.empire_data is None:
-        raise argparse.ArgumentTypeError("Args must contain valid millennium falcon and empire JSON files.")
+        print("Args must contain valid millennium falcon and empire JSON files.")
+
     falcon_data_fn = args.millennium_falcon_data
     empire_data_fn = args.empire_data
     
     if fnmatch.fnmatch(falcon_data_fn, "*.json") and fnmatch.fnmatch(empire_data_fn, "*.json"):
-        print("valid json")
         falcon_config = parse_json(falcon_data_fn, FalconConfiguration)
         empire_config = parse_json(empire_data_fn, EmpireConfiguration)
         # falcon_config = FalconConfiguration(**json.load(open(data_fn)))
-        print(Solver(falcon_config, empire_config).tell_me_the_odds())
-        print(falcon_config)
-        print(empire_config)
+        odds = Solver(falcon_config, empire_config).tell_me_the_odds()
+        print(f"Odds are {odds}%")
     else:
-        argparse.ArgumentTypeError(f"One of the data files were not valid JSON.")
+        print(f"One of the data files ({falcon_data_fn} or {empire_data_fn}) were not valid JSON.")

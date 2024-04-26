@@ -1,8 +1,10 @@
-from http.client import HTTPException
 import json
 import logging
-from fastapi.testclient import TestClient
+from http.client import HTTPException
+
 import pytest
+from fastapi.testclient import TestClient
+
 
 def test_api(client: TestClient):
     resp = client.post("/odds", json={"empire_config": {
