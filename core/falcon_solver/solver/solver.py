@@ -1,16 +1,15 @@
 """
 Given a start planet, end planet, autonomy, and time, calculate all possible paths, and return the one with the highest success odds
 """
-from queue import PriorityQueue
-from copy import copy
 import logging
+from copy import copy
+from queue import PriorityQueue
+
 from falcon_solver.parser.parse_json import process_bounty_hunters
 from falcon_solver.parser.parse_universe import parse_universe
-from falcon_solver.shared.models import (
-    EmpireConfiguration,
-    FalconConfiguration,
-    PathStep,
-)
+from falcon_solver.shared.models import (EmpireConfiguration,
+                                         FalconConfiguration, PathStep)
+
 
 class Solver:
 

@@ -1,11 +1,14 @@
 import logging
-from pathlib import Path
 import sqlite3
+from pathlib import Path
 
 
 def parse_universe(db_path: str) -> dict[dict[str, int]]:
+    full_path = str(Path.cwd()) + db_path
+    if "core" not in full_path:
+        full_path = str(Path.cwd()) + "/core" + db_path
     logging.info(str(Path.cwd()) + db_path)
-    connection = sqlite3.connect(str(Path.cwd()) + db_path)
+    connection = sqlite3.connect(full_path)
     cur = connection.cursor()
     res = cur.execute("SELECT * FROM routes;")
     results = res.fetchall()

@@ -4,7 +4,8 @@ from pathlib import Path
 from fastapi import APIRouter
 
 from falcon_solver.parser.parse_json import parse_json
-from falcon_solver.shared.models import EmpireConfiguration, FalconConfiguration
+from falcon_solver.shared.models import (EmpireConfiguration,
+                                         FalconConfiguration)
 from falcon_solver.solver.solver import Solver
 
 router = APIRouter(tags=["Odds Calculations"], prefix="/odds")

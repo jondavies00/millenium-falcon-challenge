@@ -1,11 +1,11 @@
 import logging
-from falcon_solver.parser.parse_json import parse_json
-from falcon_solver.solver.solver import Solver
-from falcon_solver.shared.models import (
-    FalconConfiguration,
-    EmpireConfiguration,
-)
+
 import pytest
+
+from falcon_solver.parser.parse_json import parse_json
+from falcon_solver.shared.models import (EmpireConfiguration,
+                                         FalconConfiguration)
+from falcon_solver.solver.solver import Solver
 
 
 @pytest.mark.parametrize(
