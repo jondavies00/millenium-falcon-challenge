@@ -1,8 +1,7 @@
-import logging
 from dataclasses import dataclass
 from typing import TypedDict
 
-from pydantic import BaseModel, root_validator
+from pydantic import BaseModel
 
 
 @dataclass
@@ -12,9 +11,11 @@ class PathStep:
     route: list[str]
     seen_bounty_hunters: int
 
+
 class BountyHunters(TypedDict):
     day: int
     planet: str
+
 
 class FalconConfiguration(BaseModel):
     autonomy: int
@@ -22,7 +23,8 @@ class FalconConfiguration(BaseModel):
     arrival: str
     routes_db: str
 
+
 class EmpireConfiguration(BaseModel):
     countdown: int
     # coerces potentially json-loaded bounty hunters into correct types
-    bounty_hunters: list[BountyHunters] 
+    bounty_hunters: list[BountyHunters]

@@ -13,6 +13,8 @@ fastapi = "^0.88.0"
 uvicorn = "*"
 httpx = "*"
 isort = "*"
+black = "*"
+pylint = "*"
 
 [build-system]
 requires = ["poetry-core"]

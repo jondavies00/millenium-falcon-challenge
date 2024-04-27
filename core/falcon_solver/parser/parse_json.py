@@ -1,7 +1,6 @@
 import json
 import logging
 from pathlib import Path
-from typing import Literal
 
 from pydantic import ValidationError
 
@@ -12,12 +11,12 @@ def parse_json(
     path: str, config: type[EmpireConfiguration] | type[FalconConfiguration]
 ) -> EmpireConfiguration | FalconConfiguration:
 
-    with open(str(Path.cwd()) + path) as fn:
+    with open(str(Path.cwd()) + path, encoding="utf-8") as fn:
         json_falcon = json.loads(fn.read())
     try:
         return config(**json_falcon)
-    except ValidationError as exc:
-        logging.error("JSON in %s was invalid" % path)
+    except ValidationError:
+        logging.error("JSON in %s was invalid", path)
         raise
 
 
