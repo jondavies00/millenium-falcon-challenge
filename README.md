@@ -252,9 +252,7 @@ To get started, clone the repo with `git clone https://github.com/jondavies00/mi
 
 ### Tests
 
-To run the tests install poetry and do the following:
-1. `cd core`
-2. `pytest tests`
+To run the backend tests, just do `make test`
 
 ### The Frontend
 
@@ -263,4 +261,8 @@ Upload a JSON file containing the empire plans, and the odds percentage will be 
 
 ### The CLI
 
-To use the CLI, ensure Python 3.11 is installed, and run `get-odds.sh` in the top level directory with two arguments (the Millennium Falcon JSON and the empire JSON). The odds percentage will be displayed.
+To use the CLI, ensure Python 3.11 is installed, and run `get-odds.sh` with two arguments (the Millennium Falcon JSON and the empire JSON). The odds percentage will be displayed.
+
+### The Backend
+
+The backend is launched automatically with `start.sh`. To see the API docs, go to https://github.com/jondavies00/millenium-falcon-challenge/blob/master/openapi.json and paste here https://editor.swagger.io/
