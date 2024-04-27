@@ -262,3 +262,7 @@ Upload a JSON file containing the empire plans, and the odds percentage will be 
 ### The CLI
 
 To use the CLI, ensure Python 3.11 is installed, and run `get-odds.sh` with two arguments (the Millennium Falcon JSON and the empire JSON). The odds percentage will be displayed.
+
+### The Backend
+
+The backend is launched automatically with `start.sh`. To see the API docs, go to https://github.com/jondavies00/millenium-falcon-challenge/blob/master/openapi.json
