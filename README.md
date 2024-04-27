@@ -1,3 +1,5 @@
+![Python Workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
+
 ## Millennium Falcon Challenge
 
 <details open>
