@@ -1,0 +1,6 @@
+{
+    "autonomy": -1,
+    "departure": "Tatooine",
+    "arrival": "Endor",
+    "routes_db": "/tests/resources/universe.db"
+  }

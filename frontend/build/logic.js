@@ -6,11 +6,15 @@ var fileInput  = document.querySelector( ".input-file" ),
 
 button.addEventListener( "click", function( event ) {
     fileInput.focus();
+    console.log("OMG");
     return false;
 });  
 fileInput.addEventListener( "change", function( event ) {  
     const file = fileInput.files[0]; // Get the selected file
-
+    const existingOddsElements = document.querySelectorAll('#content p');
+    existingOddsElements.forEach(element => {
+        element.remove(); // Remove each existing odds element
+    });
     if (file) {
         const reader = new FileReader();
 
@@ -21,7 +25,7 @@ fileInput.addEventListener( "change", function( event ) {
             calculateOdds(jsonData).then(odds => {if (typeof odds === "number") {
                 displayOdds(odds)
             }})
-           ;
+            fileInput.value = ''; // Reset the value of the file input element
         };
 
         reader.readAsText(file);
@@ -38,7 +42,6 @@ function displayOdds(calculatedOdds) {
     oddsElement.style.color = 'yellow';
     const form = document.getElementById('content');
     form.appendChild(oddsElement);
-    // document.body.appendChild(oddsElement);
 }
 
 async function calculateOdds(jsonData) {
@@ -51,8 +54,11 @@ async function calculateOdds(jsonData) {
         body : JSON.stringify({"empire_config": jsonData})
   
       });
+    if (response.status === 422) {
+        alert('Invalid file. Please select a valid file.');
+        return;
+    }
     const odds  = await response.json()
     console.log(`Returning ${odds}`);
     return odds;
-    
 }
