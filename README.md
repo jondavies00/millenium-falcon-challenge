@@ -1,4 +1,4 @@
-![Python Workflow](https://github.com/jondavies00/millenium-falcon-challenge/blob/master/.github/workflows/python-app.yml)
+![Python Workflow](https://github.com/jondavies00/millenium-falcon-challenge/blob/master/.github/workflows/python-app.yml/badge.svg)
 
 ## Millennium Falcon Challenge
 
