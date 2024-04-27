@@ -252,9 +252,7 @@ To get started, clone the repo with `git clone https://github.com/jondavies00/mi
 
 ### Tests
 
-To run the tests install poetry and do the following:
-1. `cd core`
-2. `pytest tests`
+To run the backend tests, just do `make test`
 
 ### The Frontend
 
