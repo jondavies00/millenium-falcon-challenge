@@ -46,8 +46,11 @@ jobs:
       working-directory: ./core
     - run: poetry run pytest 
       working-directory: ./core
-    - name: Lint with pylint
+    - name: Lint core with pylint
       working-directory: ./core
       run: |
-        poetry run pylint --output-format=colorized --extension-pkg-whitelist='pydantic' --fail-under=8.0 core/falcon_solver
-        poetry run pylint --output-format=colorized --fail-under=8.0 cli
+        poetry run pylint --output-format=colorized --extension-pkg-whitelist='pydantic' --fail-under=8.0 falcon_solver
+    - name: Lint CLI with pylint
+      working-directory: ./
+      run: |
+        poetry run pylint --output-format=colorized --extension-pkg-whitelist='pydantic' --fail-under=8.0 cli
