@@ -9,11 +9,12 @@ button.addEventListener( "click", function( event ) {
     console.log("OMG");
     return false;
 });  
+
 fileInput.addEventListener( "change", function( event ) {  
-    const file = fileInput.files[0]; // Get the selected file
+    const file = fileInput.files[0]; 
     const existingOddsElements = document.querySelectorAll('#content p');
     existingOddsElements.forEach(element => {
-        element.remove(); // Remove each existing odds element
+        element.remove(); 
     });
     if (file) {
         const reader = new FileReader();
@@ -21,11 +22,10 @@ fileInput.addEventListener( "change", function( event ) {
         reader.onload = function(event) {
             const jsonData = JSON.parse(event.target.result);
             console.log(jsonData); 
-            // Here you can perform any operations with the JSON data
             calculateOdds(jsonData).then(odds => {if (typeof odds === "number") {
                 displayOdds(odds)
             }})
-            fileInput.value = ''; // Reset the value of the file input element
+            fileInput.value = '';
         };
 
         reader.readAsText(file);

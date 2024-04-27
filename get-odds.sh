@@ -1,3 +1,3 @@
-export PYTHONPATH=$PYTHONPATH/core:$PYTHONPATH
-python -m cli -m /$1 -e /$2
+cd core
+python -m cli -m ../$1 -e ../$2
 

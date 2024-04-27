@@ -1,3 +1,4 @@
+from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
@@ -9,7 +10,7 @@ from falcon_solver.shared.models import EmpireConfiguration, FalconConfiguration
     "test_path,config,expected",
     [
         (
-            "/tests/resources/empire-1.json",
+            str(Path.cwd()) + "/tests/resources/empire-1.json",
             EmpireConfiguration,
             {
                 "countdown": 7,
@@ -21,7 +22,7 @@ from falcon_solver.shared.models import EmpireConfiguration, FalconConfiguration
             },
         ),
         (
-            "/tests/resources/millennium-falcon.json",
+            str(Path.cwd()) + "/tests/resources/millennium-falcon.json",
             FalconConfiguration,
             {
                 "autonomy": 6,
@@ -39,7 +40,10 @@ def test_universe_parser(test_path, config, expected):
 
 def test_invalid_empire_parse():
     with pytest.raises(ValidationError):
-        parse_json("/tests/resources/invalid-empire.json", EmpireConfiguration)
+        parse_json(
+            str(Path.cwd()) + "/tests/resources/invalid-empire.json",
+            EmpireConfiguration,
+        )
 
 
 def test_invalid_millennium_falcon_parse():
@@ -48,7 +52,8 @@ def test_invalid_millennium_falcon_parse():
     """
     with pytest.raises(ValidationError):
         parse_json(
-            "/tests/resources/invalid-millennium-falcon.json", FalconConfiguration
+            str(Path.cwd()) + "/tests/resources/invalid-millennium-falcon.json",
+            FalconConfiguration,
         )
 
 

@@ -11,7 +11,7 @@ def parse_json(
     path: str, config: type[EmpireConfiguration] | type[FalconConfiguration]
 ) -> EmpireConfiguration | FalconConfiguration:
 
-    with open(str(Path.cwd()) + path, encoding="utf-8") as fn:
+    with open(path, encoding="utf-8") as fn:
         json_falcon = json.loads(fn.read())
     try:
         return config(**json_falcon)
