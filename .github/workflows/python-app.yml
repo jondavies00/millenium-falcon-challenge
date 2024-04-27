@@ -49,5 +49,5 @@ jobs:
     - name: Lint with pylint
       working-directory: ./core
       run: |
-        pylint --output-format=colorized --extension-pkg-whitelist='pydantic' --fail-under=8.0 core/falcon_solver
-        pylint --output-format=colorized --fail-under=8.0 cli
+        poetry run pylint --output-format=colorized --extension-pkg-whitelist='pydantic' --fail-under=8.0 core/falcon_solver
+        poetry run pylint --output-format=colorized --fail-under=8.0 cli
