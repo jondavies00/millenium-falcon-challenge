@@ -1,6 +1,4 @@
-import logging
 from pathlib import Path
-
 from fastapi import APIRouter
 
 from falcon_solver.parser.parse_json import parse_json
@@ -17,7 +15,7 @@ async def odds(
 
     if not falcon_config:
         falcon_config = parse_json(
-            "/falcon_solver/shared/resources/millennium-falcon.json",
+            str(Path.cwd()) + "/falcon_solver/shared/resources/millennium-falcon.json",
             FalconConfiguration,
         )
     solver = Solver(falcon_config=falcon_config, empire_config=empire_config)

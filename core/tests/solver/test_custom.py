@@ -1,3 +1,5 @@
+import logging
+from pathlib import Path
 import pytest
 
 from falcon_solver.parser.parse_json import parse_json
@@ -13,10 +15,12 @@ def test_custom(empire_filename: str, odds: float):
     """
     solver = Solver(
         falcon_config=parse_json(
-            "/tests/resources/millennium-falcon.json", FalconConfiguration
+            str(Path.cwd()) + "/tests/resources/millennium-falcon.json",
+            FalconConfiguration,
         ),
         empire_config=parse_json(
-            f"/tests/resources/{empire_filename}.json", EmpireConfiguration
+            str(Path.cwd()) + f"/tests/resources/{empire_filename}.json",
+            EmpireConfiguration,
         ),
     )
     assert odds == solver.tell_me_the_odds(rounded=True)
