@@ -265,4 +265,4 @@ To use the CLI, ensure Python 3.11 is installed, and run `get-odds.sh` with two 
 
 ### The Backend
 
-The backend is launched automatically with `start.sh`. To see the API docs, go to https://github.com/jondavies00/millenium-falcon-challenge/blob/master/openapi.json
+The backend is launched automatically with `start.sh`. To see the API docs, go to https://github.com/jondavies00/millenium-falcon-challenge/blob/master/openapi.json and paste here `https://editor.swagger.io/`
