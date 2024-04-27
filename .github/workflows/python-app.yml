@@ -18,7 +18,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - run: cd core
     - uses: actions/checkout@v4
     - name: Set up Python 3.11
       uses: actions/setup-python@v3
@@ -41,10 +40,14 @@ jobs:
         path: .venv
         key: pydeps-${{ hashFiles('**/poetry.lock') }}
     - run: poetry install --no-interaction --no-root 
+      working-directory: ./core
       if: steps.cache-deps.outputs.cache-hit != 'true'
     - run: poetry install --no-interaction
+      working-directory: ./core
     - run: poetry run pytest 
+      working-directory: ./core
     - name: Lint with pylint
       run: |
+        working-directory: ./core
         pylint --output-format=colorized --extension-pkg-whitelist='pydantic' --fail-under=8.0 core/falcon_solver
         pylint --output-format=colorized --fail-under=8.0 cli
