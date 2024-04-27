@@ -3,8 +3,8 @@ version: '3.8'
 services:
   backend:
     build:
-      context: core
-      dockerfile: Dockerfile
+      context: ../millenium-falcon-challenge
+      dockerfile: ./docker/Dockerfile.backend.development
     ports:
       - "8000:8000"
     networks:
@@ -17,8 +17,8 @@ services:
 
   frontend:
     build:
-      context: frontend
-      dockerfile: Dockerfile
+      context: ../millenium-falcon-challenge
+      dockerfile: ./docker/Dockerfile.frontend
     ports:
       - "80:80"
     networks:

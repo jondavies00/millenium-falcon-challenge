@@ -5,8 +5,6 @@ from pathlib import Path
 
 def parse_universe(db_path: str) -> dict[dict[str, int]]:
     full_path = str(Path.cwd()) + db_path
-    if "core" not in full_path:
-        full_path = str(Path.cwd()) + "/core" + db_path
     logging.info("Path of universe db: %s", str(Path.cwd()) + db_path)
     connection = sqlite3.connect(full_path)
     cur = connection.cursor()

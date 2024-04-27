@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import TypedDict
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 @dataclass
@@ -18,13 +18,13 @@ class BountyHunters(TypedDict):
 
 
 class FalconConfiguration(BaseModel):
-    autonomy: int
+    autonomy: int = Field(ge=0)
     departure: str
     arrival: str
     routes_db: str
 
 
 class EmpireConfiguration(BaseModel):
-    countdown: int
+    countdown: int = Field(ge=-1)
     # coerces potentially json-loaded bounty hunters into correct types
     bounty_hunters: list[BountyHunters]

@@ -92,7 +92,7 @@ class Solver:
         possible = []
 
         for next_planet, weight in self.routes[step.route[-1]].items():
-            logging.debug(
+            logging.info(
                 "We're on day %s. checking if there are any bounty hunters on planet %s on day %s",
                 step.day,
                 next_planet,
@@ -101,11 +101,16 @@ class Solver:
 
             bh = False
             if weight <= step.autonomy and step.day - weight >= 0:
-                logging.debug("Setting day from %s to %s", step.day, step.day - weight)
+                logging.info("Setting day from %s to %s", step.day, step.day - weight)
+                logging.info(
+                    "Checking %s with index %s",
+                    self.bounty_hunters,
+                    (self.countdown - step.day) + weight,
+                )
                 if next_planet in self.bounty_hunters.get(
                     (self.countdown - step.day) + weight, []
                 ):
-                    logging.debug("Found a bh whilst moving.")
+                    logging.info("Found a bh whilst moving.")
                     bh = True
                 updated_route = copy(step.route)
                 updated_route.append(next_planet)
@@ -127,7 +132,7 @@ class Solver:
             if step.route[-1] in self.bounty_hunters.get(
                 (self.countdown - step.day) + 1, []
             ):
-                logging.debug("Found a bh whilst refueling.")
+                logging.info("Found a bh whilst refueling.")
                 bh = True
             updated_route = copy(step.route)
             updated_route.append(step.route[-1])

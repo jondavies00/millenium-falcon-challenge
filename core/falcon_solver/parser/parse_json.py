@@ -29,7 +29,7 @@ def process_bounty_hunters(bounty_hunters: list[dict]) -> dict[int, list[str]]:
     for bh in bounty_hunters:
         planet = bh["planet"]
         day = bh["day"]
-        if day not in bh:
+        if day not in new:
             new[day] = []
         if planet not in new[day]:
             new[day].append(planet)

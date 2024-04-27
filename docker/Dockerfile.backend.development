@@ -1,6 +1,9 @@
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.11
 
+RUN pip install pytest
 
-COPY ./falcon_solver ./falcon_solver
+
+COPY ./core/falcon_solver ./falcon_solver
+COPY ./core/tests ./tests
 
 CMD ["uvicorn", "falcon_solver.server.app:create_app", "--host", "0.0.0.0"]
