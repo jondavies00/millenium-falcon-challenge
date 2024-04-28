@@ -12,7 +12,10 @@ router = APIRouter(tags=["Odds Calculations"], prefix="/odds")
 async def odds(
     empire_config: EmpireConfiguration, falcon_config: FalconConfiguration | None = None
 ):
-
+    """
+    Calculate the odds for an empire plan configuration. Use the default millennium falcon
+    config if not supplied.
+    """
     if not falcon_config:
         falcon_config = parse_json(
             str(Path.cwd()) + "/falcon_solver/shared/resources/millennium-falcon.json",

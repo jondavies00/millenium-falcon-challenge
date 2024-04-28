@@ -1,7 +1,3 @@
-"""
-Exposes endpoints to get the odds for some inputs
-"""
-
 import uvicorn
 from fastapi import FastAPI
 
