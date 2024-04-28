@@ -9,8 +9,7 @@ import sys
 from pydantic import ValidationError
 
 from falcon_solver.parser.parse_json import parse_json
-from falcon_solver.shared.models import (EmpireConfiguration,
-                                         FalconConfiguration)
+from falcon_solver.shared.models import EmpireConfiguration, FalconConfiguration
 from falcon_solver.solver.solver import Solver
 
 # def parse_data()
@@ -54,6 +53,11 @@ if __name__ == "__main__":
         try:
             falcon_config = parse_json(falcon_data_fn, FalconConfiguration)
             empire_config = parse_json(empire_data_fn, EmpireConfiguration)
+        except FileNotFoundError:
+            print(
+                "One of the files could not be found, please make sure they exist in the directory this script is ran from."
+            )
+            sys.exit()
         except ValidationError:
             print(
                 "One of the JSON files have invalid values. Please ensure data types are correct and integers are > 0."
