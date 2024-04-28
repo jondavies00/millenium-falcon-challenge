@@ -260,6 +260,8 @@ To access the web application, ensure docker is installed and launch the project
 
 To use the web app, head to `localhost:80` and upload a JSON file containing the empire plans. The solver will run and the odds percentage will be displayed.
 
+![Frontend](docs/frontend-pic.png)
+
 ### CLI
 
 To use the CLI:
