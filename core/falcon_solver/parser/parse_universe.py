@@ -1,5 +1,6 @@
 import logging
 import sqlite3
+
 from pathlib import Path
 
 
@@ -9,7 +10,7 @@ def parse_universe(db_path: str) -> dict[dict[str, int]]:
     indexed by planet -> reachable planet -> autonomy to get there.
     """
     full_path = str(Path.cwd()) + db_path
-    logging.info("Path of universe db: %s", str(Path.cwd()) + db_path)
+    logging.debug("Path of universe db: %s", str(Path.cwd()) + db_path)
     connection = sqlite3.connect(full_path)
     cur = connection.cursor()
     res = cur.execute("SELECT * FROM routes;")

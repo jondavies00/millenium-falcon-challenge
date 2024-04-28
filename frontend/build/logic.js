@@ -6,7 +6,6 @@ var fileInput  = document.querySelector( ".input-file" ),
 
 button.addEventListener( "click", function( event ) {
     fileInput.focus();
-    console.log("OMG");
     return false;
 });  
 
@@ -35,7 +34,6 @@ fileInput.addEventListener( "change", function( event ) {
 });  
 
 function displayOdds(calculatedOdds) {
-    console.log("attempting display")
     const oddsText = `Your calculated odds: ${calculatedOdds}%!`;
     const oddsElement = document.createElement('p');
     oddsElement.textContent = oddsText;
