@@ -4,6 +4,10 @@ from pathlib import Path
 
 
 def parse_universe(db_path: str) -> dict[dict[str, int]]:
+    """
+    Given a universe database file path, parse the data into a dictionary,
+    indexed by planet -> reachable planet -> autonomy to get there.
+    """
     full_path = str(Path.cwd()) + db_path
     logging.info("Path of universe db: %s", str(Path.cwd()) + db_path)
     connection = sqlite3.connect(full_path)

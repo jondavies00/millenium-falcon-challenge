@@ -2,16 +2,16 @@
 Uses argparse to load in JSONs and calculate a percentage score 
 """
 
+import argparse
+import fnmatch
 import sys
 
 from pydantic import ValidationError
-from falcon_solver.solver.solver import Solver
 
-import argparse
-import fnmatch
-
-from falcon_solver.shared.models import EmpireConfiguration, FalconConfiguration
 from falcon_solver.parser.parse_json import parse_json
+from falcon_solver.shared.models import (EmpireConfiguration,
+                                         FalconConfiguration)
+from falcon_solver.solver.solver import Solver
 
 # def parse_data()
 

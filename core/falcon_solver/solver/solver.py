@@ -1,5 +1,5 @@
 """
-Given a start planet, end planet, autonomy, and time, calculate all possible paths, and return the one with the highest success odds
+Define the Solver for the backend (C3PO)
 """
 
 import logging
@@ -7,11 +7,8 @@ from copy import copy
 
 from falcon_solver.parser.parse_json import process_bounty_hunters
 from falcon_solver.parser.parse_universe import parse_universe
-from falcon_solver.shared.models import (
-    EmpireConfiguration,
-    FalconConfiguration,
-    PathStep,
-)
+from falcon_solver.shared.models import (EmpireConfiguration,
+                                         FalconConfiguration, PathStep)
 
 
 class Solver:
@@ -31,9 +28,9 @@ class Solver:
 
     def tell_me_the_odds(self, rounded: bool = False) -> float:
         """
-        Ask C3PO to tell you the odds, as a percentage
+        Compute the odds calculation if there is a successful path.
         """
-        k = self.get_least_bounty_hunter_captures()
+        k = self._get_least_bounty_hunter_captures()
         if k is None:
             return 0
         odds = 1 - Solver.compute_capture_times_formula(k) or 1
@@ -46,7 +43,7 @@ class Solver:
             sum_ += (9**i) / (10 ** (i + 1))
         return sum_
 
-    def get_least_bounty_hunter_captures(self) -> int | None:
+    def _get_least_bounty_hunter_captures(self) -> int | None:
         """
         Implements a kind of priority queue (a dictionary of bounty hunters found, to possible paths)
         This way we iterate to find successful paths with the least bounty hunter captures first.
@@ -68,14 +65,14 @@ class Solver:
                 if current_step.day < 0:
                     continue
 
-                if self.is_successful_path(current_step):
+                if self._is_successful_path(current_step):
                     logging.info(
-                        "Found a successful path with %s bounty hunters: %s",
+                        "Found a successful path of length %s with %s bounty hunters.",
+                        len(current_step.route),
                         current_step.seen_bounty_hunters,
-                        current_step.route,
                     )
                     return current_step.seen_bounty_hunters
-                possible_steps = self.calculate_possible_steps(current_step)
+                possible_steps = self._calculate_possible_steps(current_step)
                 for step in possible_steps:
                     if step.seen_bounty_hunters not in steps:
 
@@ -87,65 +84,81 @@ class Solver:
             smallest_bh_number += 1
         return None
 
-    def calculate_possible_steps(self, step: PathStep) -> list[PathStep]:
-        possible = []
+    def _calculate_possible_steps(self, step: PathStep) -> list[PathStep]:
+        """
+        Calculate the possible steps from the current step (step).
+        """
+        possible = self._calculate_reachable_planet_steps(step)
+        if step.day - 1 > 0:
+            possible.append(self._calculate_refuel_step(step))
 
-        for next_planet, weight in self.routes[step.route[-1]].items():
+        return possible
+
+    def _calculate_reachable_planet_steps(
+        self, current_step: PathStep
+    ) -> list[PathStep]:
+        possible_steps = []
+        for next_planet, weight in self.routes[current_step.route[-1]].items():
             logging.debug(
                 "We're on day %s. checking if there are any bounty hunters on planet %s on day %s",
-                step.day,
+                current_step.day,
                 next_planet,
-                (self.countdown - step.day) + weight,
+                (self.countdown - current_step.day) + weight,
             )
 
-            bh = False
-            if weight <= step.autonomy and step.day - weight >= 0:
-                logging.debug("Setting day from %s to %s", step.day, step.day - weight)
+            bounty_hunter = False
+            if weight <= current_step.autonomy and current_step.day - weight >= 0:
+                logging.debug(
+                    "Setting day from %s to %s",
+                    current_step.day,
+                    current_step.day - weight,
+                )
                 logging.debug(
                     "Checking %s with index %s",
                     self.bounty_hunters,
-                    (self.countdown - step.day) + weight,
+                    (self.countdown - current_step.day) + weight,
                 )
                 if next_planet in self.bounty_hunters.get(
-                    (self.countdown - step.day) + weight, []
+                    (self.countdown - current_step.day) + weight, []
                 ):
-                    logging.info("Found a bh whilst moving.")
-                    bh = True
-                updated_route = copy(step.route)
+                    logging.debug("Found a bounty hunter whilst moving!")
+                    bounty_hunter = True
+                updated_route = copy(current_step.route)
                 updated_route.append(next_planet)
-                possible.append(
+                possible_steps.append(
                     PathStep(
-                        autonomy=step.autonomy - weight,
-                        day=step.day - weight,
+                        autonomy=current_step.autonomy - weight,
+                        day=current_step.day - weight,
                         route=updated_route,
                         seen_bounty_hunters=(
-                            step.seen_bounty_hunters + 1
-                            if bh
-                            else step.seen_bounty_hunters
+                            current_step.seen_bounty_hunters + 1
+                            if bounty_hunter
+                            else current_step.seen_bounty_hunters
                         ),
                     )
                 )
-        bh = False
-        # It's always possible to refuel and go nowhere
-        if step.day - 1 > 0:
-            if step.route[-1] in self.bounty_hunters.get(
-                (self.countdown - step.day) + 1, []
-            ):
-                logging.info("Found a bh whilst refueling.")
-                bh = True
-            updated_route = copy(step.route)
-            updated_route.append(step.route[-1])
-            possible.append(
-                PathStep(
-                    autonomy=self.autonomy,
-                    day=step.day - 1,
-                    route=updated_route,
-                    seen_bounty_hunters=(
-                        step.seen_bounty_hunters + 1 if bh else step.seen_bounty_hunters
-                    ),
-                )
-            )
-        return possible
+        return possible_steps
 
-    def is_successful_path(self, step: PathStep) -> bool:
+    def _calculate_refuel_step(self, current_step: PathStep) -> PathStep:
+        # Refueling is always possible (if we're not on day 0)
+        bounty_hunter = False
+        if current_step.route[-1] in self.bounty_hunters.get(
+            (self.countdown - current_step.day) + 1, []
+        ):
+            logging.debug("Found a bounty hunter whilst refueling.")
+            bounty_hunter = True
+        updated_route = copy(current_step.route)
+        updated_route.append(current_step.route[-1])
+        return PathStep(
+            autonomy=self.autonomy,
+            day=current_step.day - 1,
+            route=updated_route,
+            seen_bounty_hunters=(
+                current_step.seen_bounty_hunters + 1
+                if bounty_hunter
+                else current_step.seen_bounty_hunters
+            ),
+        )
+
+    def _is_successful_path(self, step: PathStep) -> bool:
         return step.route[-1] == self.end

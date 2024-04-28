@@ -10,6 +10,10 @@ from falcon_solver.shared import EmpireConfiguration, FalconConfiguration
 def parse_json(
     path: str, config: type[EmpireConfiguration] | type[FalconConfiguration]
 ) -> EmpireConfiguration | FalconConfiguration:
+    """
+    Given a file path of either an empire plan JSON, or a millennium falcon
+    configuration JSON, attempt to convert these into their respective models.
+    """
 
     with open(path, encoding="utf-8") as fn:
         json_falcon = json.loads(fn.read())
@@ -22,8 +26,8 @@ def parse_json(
 
 def process_bounty_hunters(bounty_hunters: list[dict]) -> dict[int, list[str]]:
     """
-    Preprocess the bounty hunters list into a more accessible dict for quick look up
-    Indexed by day to planets
+    Process the bounty hunters list into a more accessible dict
+    (indexed by day to planet) nfor quick look up.
     """
     new: dict[int, list[str]] = {}
     for bh in bounty_hunters:
