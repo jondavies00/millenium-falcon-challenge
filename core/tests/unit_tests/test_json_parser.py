@@ -1,9 +1,11 @@
 from pathlib import Path
+
 import pytest
 from pydantic import ValidationError
 
 from falcon_solver.parser.parse_json import parse_json, process_bounty_hunters
-from falcon_solver.shared.models import EmpireConfiguration, FalconConfiguration
+from falcon_solver.shared.models import (EmpireConfiguration,
+                                         FalconConfiguration)
 
 
 @pytest.mark.parametrize(

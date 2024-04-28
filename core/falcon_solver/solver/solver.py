@@ -7,11 +7,8 @@ from copy import copy
 
 from falcon_solver.parser.parse_json import process_bounty_hunters
 from falcon_solver.parser.parse_universe import parse_universe
-from falcon_solver.shared.models import (
-    EmpireConfiguration,
-    FalconConfiguration,
-    PathStep,
-)
+from falcon_solver.shared.models import (EmpireConfiguration,
+                                         FalconConfiguration, PathStep)
 
 
 class Solver:

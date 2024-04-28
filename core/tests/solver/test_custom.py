@@ -1,9 +1,11 @@
 import logging
 from pathlib import Path
+
 import pytest
 
 from falcon_solver.parser.parse_json import parse_json
-from falcon_solver.shared.models import EmpireConfiguration, FalconConfiguration
+from falcon_solver.shared.models import (EmpireConfiguration,
+                                         FalconConfiguration)
 from falcon_solver.solver.solver import Solver
 
 
