@@ -242,9 +242,12 @@ or
 ## Prerequisites
 
 - Web App: 
-  - Docker (install [here](https://docs.docker.com/engine/install/))
+  - [Docker](https://docs.docker.com/engine/install/))
+  - [make](https://www.gnu.org/software/make/) (optional)
 - CLI:
-  - Python 3.11 (install [here](https://www.python.org/downloads/))
+  - [Python 3.11](https://www.python.org/downloads/))
+  - [pip](https://pip.pypa.io/en/stable/installation/)
+  - [poetry](https://python-poetry.org/)
 
 ## Usage
 
@@ -259,13 +262,15 @@ File structure:
 
 ### Web Application
 
-To access the web application, ensure docker is installed and launch the project with `start.sh` in your browser. This launches the frontend web files and the backend Uvicorn server. 
+To access the web application, ensure docker is installed and launch the project with `start.sh` (or `make up`). This launches the frontend web files and the backend Uvicorn server. 
 
 To use the web app, head to `localhost:80` and upload a JSON file containing the empire plans. The solver will run and the odds percentage will be displayed as shown below:
 
 ![Frontend](docs/frontend-pic.png)
 
 **NOTE:** Responses from the back-end seem to get cached (at least on Google Chrome), so if performing multiple file uploads, please disable caching in the network section in dev tools. It also may be necessary to open the web page in an incognito tab if it still occurs.
+
+To exit after using, run `stop.sh` (or `make down`)
  
 ### CLI
 
@@ -286,3 +291,9 @@ To run them locally, ensure Python 3.11 is installed and change directory to `co
 To view the backend API docs, open the [`openapi.json`](https://github.com/jondavies00/millenium-falcon-challenge/blob/master/openapi.json) and paste [here](https://editor.swagger.io/)
 
 For a short explanation on how the solver works, see [here](https://github.com/jondavies00/millenium-falcon-challenge/blob/master/docs/solver.md)
+
+## Further work
+
+In the future, further work should look to enact the following:
+- Ideally, the solver would be its own package that gets imported by the CLI and server
+- Batching the requests from the database file in case we have a very large problem space
