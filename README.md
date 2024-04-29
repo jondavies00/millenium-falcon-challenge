@@ -242,10 +242,10 @@ or
 ## Prerequisites
 
 - Web App: 
-  - [Docker](https://docs.docker.com/engine/install/))
+  - [Docker](https://docs.docker.com/engine/install/)
   - [make](https://www.gnu.org/software/make/) (optional)
 - CLI:
-  - [Python 3.11](https://www.python.org/downloads/))
+  - [Python 3.11](https://www.python.org/downloads/)
   - [pip](https://pip.pypa.io/en/stable/installation/)
   - [poetry](https://python-poetry.org/)
 
