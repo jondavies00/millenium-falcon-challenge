@@ -265,6 +265,8 @@ To use the web app, head to `localhost:80` and upload a JSON file containing the
 
 ![Frontend](docs/frontend-pic.png)
 
+**NOTE:** Responses from the back-end seem to get cached (at least on Google Chrome), so if performing multiple file uploads, please disable caching in the network section in dev tools. It also may be necessary to open the web page in an incognito tab if it still occurs.
+ 
 ### CLI
 
 To use the CLI:
