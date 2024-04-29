@@ -7,6 +7,9 @@ pylint-check-cli:
 up:
 	docker compose -f docker-compose.yml up -d  --force-recreate
 
+down:
+	docker compose -f docker-compose.yml down
+
 build-backend:
 	docker build -f docker/Dockerfile.backend.development .
 

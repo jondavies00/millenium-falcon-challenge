@@ -1,3 +1,3 @@
 cd core
-python -m cli -m ../$1 -e ../$2
+python3 -m cli -m ../$1 -e ../$2
 
