@@ -281,4 +281,4 @@ To run them locally, ensure Python 3.11 is installed and change directory to `co
 
 To view the backend API docs, open the [`openapi.json`](https://github.com/jondavies00/millenium-falcon-challenge/blob/master/openapi.json) and paste [here](https://editor.swagger.io/)
 
-For a short explanation on how the solver works, see https://github.com/jondavies00/millenium-falcon-challenge/blob/master/docs/solver.md
+For a short explanation on how the solver works, see [here](https://github.com/jondavies00/millenium-falcon-challenge/blob/master/docs/solver.md)
