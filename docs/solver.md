@@ -2,4 +2,4 @@ The solver works by calculating the paths with the chance to have the best odds 
 
 If the best-case odds are at a very high amount of bounty hunter captures, and the search space is very large, the algorithm will be slow. The complexity will be $$O((b+1)^d)$$ - where b is the branching factor (average number of nodes possible to explore from any given node) and d is the depth, which will be `countdown - shortest distance to the end node` in the worst case (we can infinitely refuel on the first planet before reaching the destination). 
 
-Regardless, one would expect (on average) this time to be much faster than calculating all successful paths, and finding the best odds out of these. This would be $$O((b+1)^d + n)$$ (where n is the length of the resulting successful paths list).
+Regardless, one would expect (on average) this time to be much faster than calculating all successful paths, and finding the best odds out of these. This would be $$O((b+1)^d + n)$$ (where n is the length of the resulting successful paths list). This solution would not be able to exit early and would end up doing a lot more calculation on average.
