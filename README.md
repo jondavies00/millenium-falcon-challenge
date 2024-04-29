@@ -277,6 +277,8 @@ The odds percentage will be displayed.
 To run the backend tests, simply run `make test` and they will be ran in a docker container.
 To run them locally, ensure Python 3.11 is installed and change directory to `core`. Then run `pytest tests`.
 
-## API Docs
+## Docs
 
 To view the backend API docs, go to https://github.com/jondavies00/millenium-falcon-challenge/blob/master/openapi.json and paste here https://editor.swagger.io/
+
+For a short explanation on how the solver works, see https://github.com/jondavies00/millenium-falcon-challenge/blob/master/docs/solver.md
