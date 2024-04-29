@@ -1,6 +1,8 @@
 [![Backend Application](https://github.com/jondavies00/millenium-falcon-challenge/actions/workflows/python-app.yml/badge.svg)](https://github.com/jondavies00/millenium-falcon-challenge/actions/workflows/python-app.yml)
 
-## Millennium Falcon Challenge
+## Introduction
+
+This project provides a solution to the 'Millennium Falcon Challenge' (see below).
 
 <details open>
 
