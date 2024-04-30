@@ -295,5 +295,7 @@ For a short explanation on how the solver works, see [here](https://github.com/j
 ## Further work
 
 In the future, further work should look to enact the following:
-- Ideally, the solver would be its own package that gets imported by the CLI and server
-- Batching the requests from the database file in case we have a very large problem space
+- Make the solver its own package that gets imported by the CLI and server
+- Add batching to the requests from the database file in case we have a very large problem space
+- Add an endpoint to find the actual path, and show the full planet map with the taken path on the UI
+- Add multithreading/multiprocessing to the possible path calculations
