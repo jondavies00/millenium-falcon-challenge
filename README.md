@@ -276,7 +276,8 @@ To exit after using, run `stop.sh` (or `make down`)
 
 To use the CLI:
 
-1. Ensure Python 3.11 is installed
+1. Ensure Python 3.11 and Poetry are installed
+2. Poetry install in `core`, activate the virtual environment, and return to the top level directory
 2. Run `get-odds.sh` with two arguments (the Millennium Falcon JSON and the empire JSON). 
 
 The odds percentage will be displayed.
